@@ -6,7 +6,7 @@ export default function Layout({ children }: Readonly<{
   }>) {
   return (
     <div className="flex bg-[#7e4226ad] h-screen">
-      <Menu />
+      {/* <Menu /> */}
       {children}
     </div>
   )

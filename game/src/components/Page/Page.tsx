@@ -1,13 +1,31 @@
 import Actions from "./Actions";
+import { useRouter } from 'next/navigation'
 
-export default function Page ({isStack = false, isMain = false}) {
+interface IProps {
+  number: number
+  isStack?: boolean
+  isMain?: boolean
+  goto?: string | null
+  addClass?: string
+}
+
+export default function Page ({isStack = false, isMain = false, goto = null, addClass, number}: IProps) {
+  const router = useRouter()
   let stackStyle = isStack && 'rotate-12 absolute left-[-400px]';
+  let mainStyle = isMain && 'absolute right-[-400px] top-[calc(50%-45vh)]';
+  
+  const changePage = () => {
+    if (goto) {
+      router.push(goto);
+    }
+  }
+
   return (
-      <div className={`w-[600px] h-[90vh] bg-[#fef3e2] shadow-lg rounded-xl p-8 m-auto old-text ${stackStyle}`}>
+      <div onClick={changePage} className={`w-[600px] h-[90vh] bg-[#fef3e2] shadow-lg rounded-xl p-8 m-auto old-text ${stackStyle} ${mainStyle} ${goto && 'cursor-pointer'} ${addClass}`}>
       
       <div className="flex justify-between">
         <div>
-          <p className="text-3xl font-bold">ДЕЛО №4</p>
+          <p className="text-3xl font-bold">ДЕЛО №{number}</p>
           <p>21.10.2024</p>
           <p>ЖЕРТВА</p>
         </div>
@@ -47,7 +65,6 @@ export default function Page ({isStack = false, isMain = false}) {
 
 `}
         </pre>
-        {/* <img src="/robot.jpg" alt="" className="rounded-xl"/> */}
         </div>
       </div>
 
