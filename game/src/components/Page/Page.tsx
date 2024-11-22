@@ -7,9 +7,11 @@ interface IProps {
   isMain?: boolean
   goto?: string | null
   addClass?: string
+
+  m?: number
 }
 
-export default function Page ({isStack = false, isMain = false, goto = null, addClass, number}: IProps) {
+export default function Page ({isStack = false, isMain = false, goto = null, addClass, number, m}: IProps) {
   const router = useRouter()
   let stackStyle = isStack && 'rotate-12 absolute left-[-400px]';
   let mainStyle = isMain && 'absolute right-[-400px] top-[calc(50%-45vh)]';
@@ -21,7 +23,13 @@ export default function Page ({isStack = false, isMain = false, goto = null, add
   }
 
   return (
-      <div onClick={changePage} className={`w-[600px] h-[90vh] bg-[#fef3e2] shadow-lg rounded-xl p-8 m-auto old-text ${stackStyle} ${mainStyle} ${goto && 'cursor-pointer'} ${addClass}`}>
+      <div onClick={changePage} className={
+        `w-[600px] h-[90vh] bg-[#fef3e2] border border-[#d6c4a8] shadow-lg rounded-xl p-8 m-auto old-text 
+        ${stackStyle} ${mainStyle} ${goto && 'cursor-pointer'} ${addClass}
+        -mt-[${m}px]
+        -ml-[${m}px]
+        `
+        }>
       
       <div className="flex justify-between">
         <div>

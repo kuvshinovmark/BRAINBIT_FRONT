@@ -10,8 +10,8 @@ interface IProps {
 
 export default function Actions ({actions = null, text = null}: IProps) {
 
-  let buttons = actions?.map(e => 
-    <button className={`w-full relative border-2 border-[#d6c4a8] ${!e.lock ? 'hover:bg-[#ffefd6]' : 'bg-[#fbf6ee] text-gray-500'}`} disabled={e.lock} onClick={() => console.log("test")}>
+  let buttons = actions?.map((e, index) => 
+    <button key={"btn"+index} className={`w-full relative border-2 border-[#d6c4a8] ${!e.lock ? 'hover:bg-[#ffefd6]' : 'bg-[#fbf6ee] text-gray-500'}`} disabled={e.lock} onClick={() => console.log("test")}>
       {e.text}
       {e.lock && <img src="/lock.png" alt="" className="absolute w-12 left-[calc(50%-1.5rem)] top-[calc(50%-1.5rem)] bg-[#fbf6ee] rounded-full"/>}
     </button>
