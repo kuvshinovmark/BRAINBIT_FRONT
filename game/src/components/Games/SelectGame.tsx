@@ -1,4 +1,4 @@
-import { getRoles } from "@/api";
+import { getGame, getRoles } from "@/api";
 import { IGame, IRole } from "@/types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -19,21 +19,24 @@ export default function SelectGame ({game, back, update}: IProps) {
       role: role.name
     });
     roles.splice(index, 1);
-    setRoles([...roles])
-    // update(game, index);
+    setRoles([...roles]);
   }
 
-  const updateRoles = async () => {
+  const updatePage = async () => {
+    console.log("Update");
+    
     let roleList = await getRoles();
     console.log(roleList);
+
+    // let game = await getGame(game = 1)
     
     setRoles(roleList);
-    console.log(roles);
   }
 
 
   useEffect(() => {
-    updateRoles();
+    updatePage();
+    setInterval(() => updatePage(), 1000);
   }, [])
 
   return (

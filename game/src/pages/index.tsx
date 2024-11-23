@@ -57,7 +57,8 @@ export default function Main () {
           {!selectGame ? <>
             
             {!creatingState ? 
-              <MainList gameList={gameList} setSelectGame={(e) => setSelectGame(e)} setCreatingState={() => setCreatingState(true)}/> : 
+            // setSelectGame={(e) => setSelectGame(e)}
+              <MainList gameList={gameList} setSelectGame={(e) => router.push("/lobby/"+e.id)} setCreatingState={() => setCreatingState(true)}/> : 
               <CreatingGame clearGame={clearGame} createGame={createGame}/>
             }
             

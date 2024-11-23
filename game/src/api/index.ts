@@ -18,6 +18,11 @@ export async function getGames () {
   return await Request('/games');
 }
 
+export async function getGame (id: number) {
+  return await Request('/games/'+id);
+}
+
+
 export async function getRoles () {
   return await Request('/roles');
 } 
@@ -44,47 +49,3 @@ export async function postGame(name: string, description: string) {
   const out = await response.json();
   return out;
 }
-
-// [
-//   {
-//     name: "Игра 1",
-//     description: "Заброшенный парк атракционов, маньяк с бензопилой",
-//     roleList: [],
-//     users: [
-//       {
-//         name: "Вася Пупкин",
-//         role: "Маньяк",
-//       },
-//       {
-//         name: "Оля лукина",
-//         role: "Жертва",
-//       }
-//     ]
-//   },
-//   {
-//     name: "Любимая",
-//     description: "Заброшенный парк атракционов, маньяк с бензопилой",
-//     roleList: [],
-//     users: [
-//       {
-//         name: "Вася Пупкин",
-//         role: "Маньяк",
-//       },
-//       {
-//         name: "Оля лукина",
-//         role: "Жертва",
-//       }
-//     ]
-//   },
-//   {
-//     name: "Игра 3",
-//     description: "Заброшенный парк атракционов, маньяк с бензопилой",
-//     roleList: ["Жертва"],
-//     users: [
-//       {
-//         name: "Вася Пупкин",
-//         role: "Маньяк",
-//       }
-//     ]
-//   }
-// ]
