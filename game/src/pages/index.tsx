@@ -1,3 +1,4 @@
+import { getGameList } from "@/api";
 import Layout from "@/app/layout";
 import CreatingGame from "@/components/Games/CreatingGame";
 import MainList from "@/components/Games/MainList";
@@ -6,7 +7,7 @@ import Menu from "@/components/Menu";
 import { IGame } from "@/types";
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function Main () {
   // let gameList: IGame[] = 
@@ -99,6 +100,19 @@ export default function Main () {
     setGameList([...gameList]);
   }
 
+  const updatePage = async () => {
+    try {
+      let list = await getGameList();
+      console.log(list);
+    } catch {
+      console.log("Error getGameList");
+    }
+  }
+
+  useEffect(() => {
+    updatePage();
+  }, [])
+
   return (
     <Layout>
       <div className={`bg-[#fef3e2] border border-[#d6c4a8] shadow-lg rounded-xl p-8 m-auto old-text w-[36rem]`}>
@@ -113,6 +127,7 @@ export default function Main () {
           </> : <>
             <SelectGame game={selectGame} back={() => setSelectGame(null)} update={(game, index) => {updateGame(game, index)}}/>
           </>}
+          {/* <button onClick={updatePage}>updatePage</button> */}
       </div>
     </Layout>
   );
