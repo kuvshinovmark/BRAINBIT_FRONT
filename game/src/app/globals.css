@@ -36,3 +36,11 @@ body {
     }
   }
 }
+
+.btn {
+  @apply border-2 border-[#d6c4a8] m-2 rounded-xl p-2 px-4 hover:bg-[#ffefd6] cursor-pointer;
+}
+
+input {
+  @apply p-2 outline-none rounded;
+}

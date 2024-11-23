@@ -50,7 +50,7 @@ export default function History ()  {
         )}
       </div>
 
-      <Page isMain goto={"/"} number={5}/>
+      <Page isMain goto={"/story"} number={5}/>
     </Layout>
   );
 }
