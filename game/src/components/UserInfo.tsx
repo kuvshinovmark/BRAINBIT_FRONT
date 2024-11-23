@@ -11,6 +11,8 @@ export default function UserInfo () {
   const updateClients = async () => {
     let clients: IClient[] = await getClients();
     setMyInfo(clients.find((e) => e.id == userID));
+    if (myInfo)
+    sessionStorage.setItem("ID", myInfo.id);
     console.log(clients);
   }
 

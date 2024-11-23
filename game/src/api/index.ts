@@ -49,3 +49,21 @@ export async function postGame(name: string, description: string) {
   const out = await response.json();
   return out;
 }
+
+export async function postJoinToGame(idClient: number, idGame: number) {
+  const response = await fetch(
+    backUrl + '/games/'+idGame+'/join',
+    { 
+      method: 'POST',
+      headers: { 
+        Accept: "application/json",
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        clientId: idClient
+      })
+    }
+  );
+  const out = await response.json();
+  return out;
+}

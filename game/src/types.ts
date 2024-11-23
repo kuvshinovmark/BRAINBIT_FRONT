@@ -4,7 +4,10 @@ export interface IGame {
   description: string
   clients: {
     name: string,
-    role: string
+    role: {
+      id: number
+      name: string
+    }
   }[]
   // roleList: string[]
 }

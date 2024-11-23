@@ -1,4 +1,4 @@
-import { getGames } from "@/api";
+import { getGames, postJoinToGame } from "@/api";
 import Layout from "@/app/layout";
 import CreatingGame from "@/components/Games/CreatingGame";
 import MainList from "@/components/Games/MainList";
@@ -17,7 +17,7 @@ export default function Main () {
   //menu state
   // 0 - общий список
   // 1 - Выбранная игра 
-  const [selectGame, setSelectGame] = useState<IGame | null>(null);
+  // const [selectGame, setSelectGame] = useState<IGame | null>(null);
   const [creatingState, setCreatingState] = useState(false);
 
   const createGame = async () => {
@@ -46,6 +46,22 @@ export default function Main () {
     }
   }
 
+  const setSelectGame = async (game: IGame) => {
+    const id = sessionStorage.getItem("ID");
+    if (id) {
+      console.log("id - " + sessionStorage.getItem("ID"));
+      console.log(id);
+      console.log(game.id);
+      let x = await postJoinToGame(Number(id), game.id);
+      console.log(x);
+      
+      router.push("/lobby/"+game.id)
+    } else {
+      alert("нет ID");
+    }
+
+  }
+
   useEffect(() => {
     updatePage();
   }, [])
@@ -54,17 +70,12 @@ export default function Main () {
     <Layout>
       <div className={`bg-[#fef3e2] border border-[#d6c4a8] shadow-lg rounded-xl p-8 m-auto old-text w-[36rem]`}>
         
-          {!selectGame ? <>
-            
             {!creatingState ? 
             // setSelectGame={(e) => setSelectGame(e)}
-              <MainList gameList={gameList} setSelectGame={(e) => router.push("/lobby/"+e.id)} setCreatingState={() => setCreatingState(true)}/> : 
+              <MainList gameList={gameList} setSelectGame={(e) => setSelectGame(e)} setCreatingState={() => setCreatingState(true)}/> : 
               <CreatingGame clearGame={clearGame} createGame={createGame}/>
             }
-            
-          </> : <>
-            <SelectGame game={selectGame} back={() => setSelectGame(null)} update={(game, index) => {updateGame(game, index)}}/>
-          </>}
+
           {/* <button onClick={updatePage}>updatePage</button> */}
       </div>
     </Layout>

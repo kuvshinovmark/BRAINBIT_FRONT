@@ -10,26 +10,22 @@ export default function Lobby() {
   const router = useRouter()
   const [roles, setRoles] = useState<IRole[]>([]);
   const [game, setGame] = useState<IGame>();
-  // const id = (await params).id
-  // console.log(await params);
-  // const router = useRouter();
+
   const {id} = router.query;
   
   const updatePage = async () => {
     console.log("Update");
     
     let roleList = await getRoles();
-    console.log(roleList);
 
     try {
       if (id)
       setGame(await getGame(Number(id)));
+      // console.log(game?.clients);
+      
     } catch {
       console.log("error get game");
-      
     }
-    
-
     
     setRoles(roleList);
   }
@@ -46,7 +42,7 @@ export default function Lobby() {
 
   useEffect(() => {
     updatePage();
-    const intervalId = setInterval(() => updatePage(), 1000);
+    const intervalId = setInterval(() => updatePage(), 3000);
     return () => {
       clearInterval(intervalId); // очищаем интервал при размонтировании компонента
     };
@@ -58,7 +54,7 @@ export default function Lobby() {
       {game != null && 
 
         <div className={`bg-[#fef3e2] border border-[#d6c4a8] shadow-lg rounded-xl p-8 m-auto old-text w-[36rem]`}>
-        <div className="border-2 border-[#d6c4a8] m-2 rounded-xl p-2 px-4 flex flex-col">
+        <div className="border-2 border-[#d6c4a8] m-2 rounded-xl p-2 px-4 flex flex-col" onClick={() => console.log(game.clients)}>
           <p className="font-semibold">{game.name}</p>
           <p>Игроков: {game.clients.length}</p>
           <p className="italic">{game.description}</p>
@@ -66,13 +62,13 @@ export default function Lobby() {
 
         {game.clients.map((clients, index) => 
         <div key={index+"user"} className="border-2 border-[#d6c4a8] m-2 rounded-xl p-2 px-4 flex flex-col">
-          <p><b>{clients.name}</b> -  {clients.role}</p>
+          <p><b>{clients.name}</b> -  {clients.role.name}</p>
         </div>)}
 
-        {roles.length !== 0 && <p className="ml-2 mt-6">Доступен выбор роли:</p>}
+        {/* {roles.length !== 0 && <p className="ml-2 mt-6">Доступен выбор роли:</p>}
         {roles.map((role, index) => 
           <button key={index+"role"} onClick={() => selectRole(role, index)} className="btn">{role.name}</button>
-        )}
+        )} */}
 
         <div className="flex justify-center mt-2">
           <button onClick={() => router.push("/")} className="btn w-20">Назад</button>
