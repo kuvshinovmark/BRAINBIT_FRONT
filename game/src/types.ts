@@ -1,11 +1,21 @@
 export interface IGame {
   name: string
   description: string
-  users: {
+  clients: {
     name: string,
     role: string
   }[]
-  roleList: string[]
+  // roleList: string[]
+}
+
+export interface IRole {
+  id: number
+  name: string
+}
+
+export interface IClient {
+  id: number
+  name: string
 }
 
 export interface IAction {

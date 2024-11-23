@@ -1,8 +1,9 @@
+import { postGame } from "@/api";
 import { IGame } from "@/types";
 import { useState } from "react";
 
 interface IProps {
-  createGame: (game: IGame) => void
+  createGame: () => void
   clearGame: () => void
 }
 
@@ -10,14 +11,15 @@ export default function CreatingGame ({createGame, clearGame}: IProps) {
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
 
-  const create = () => {
-    let newGame: IGame = {
-      name: newName,
-      description: newDescription,
-      roleList: ["Жертва", "Маньяк"],
-      users: []
-    }
-    createGame(newGame);
+  const create = async () => {
+    // let newGame: IGame = {
+    //   name: newName,
+    //   description: newDescription,
+    //   users: []
+    // }
+    let x = await postGame(newName, newDescription);
+    console.log(x);
+    createGame();
   }
   
   const clear = () => {

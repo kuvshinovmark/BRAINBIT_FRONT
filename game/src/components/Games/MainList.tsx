@@ -13,7 +13,7 @@ export default function MainList ({gameList, setSelectGame, setCreatingState}: I
     <div key={index+"game"} className="border-2 border-[#d6c4a8] m-2 rounded-xl p-2 px-4 flex justify-between">
       <div className="w-10/12 my-auto">
         <p className="font-semibold">{game.name}</p>
-        <p>Игроков: {game.users.length}</p>
+        <p>Игроков: {game.clients.length}</p>
         <p className="italic">{game.description}</p>
       </div>
 
