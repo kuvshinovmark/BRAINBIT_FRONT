@@ -24,18 +24,17 @@ export default function Page ({isStack = false, isMain = false, goto = null, add
 
   return (
       <div onClick={changePage} className={
-        `w-[600px] h-[90vh] bg-[#fef3e2] border border-[#d6c4a8] shadow-lg rounded-xl p-8 m-auto old-text 
+        `w-[600px] h-[90vh] bg-[#fef3e2] border border-[#d6c4a8] shadow-lg rounded-xl p-8 m-auto old-text
         ${stackStyle} ${mainStyle} ${goto && 'cursor-pointer'} ${addClass}
-        -mt-[${m}px]
-        -ml-[${m}px]
         `
-        }>
+        } style={m ? {marginLeft: -m+'px', marginTop: -m+'px'} : {}}>
       
       <div className="flex justify-between">
-        <div>
+        <div className="flex flex-col gap-2">
           <p className="text-3xl font-bold">ДЕЛО №{number}</p>
           <p>21.10.2024</p>
-          <p>ЖЕРТВА</p>
+          <p className="font-semibold">ЖЕРТВА</p>
+          <p className=" w-8/12">Темный переулок города Нью-Йорк. Заброшенный склад портового района.</p>
         </div>
         <div className="w-60 h-60 border-2 border-[#d6c4a8] rounded-xl text-center">
         <pre className="text-[5.2px] ">
