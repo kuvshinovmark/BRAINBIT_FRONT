@@ -1,5 +1,5 @@
 import Layout from "@/app/layout"
-import { getGame, getRoles } from "@/api";
+import { getGame, getRoles, postStartGame } from "@/api";
 import { IGame, IRole } from "@/types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ export default function Lobby() {
   
   const router = useRouter()
   const [roles, setRoles] = useState<IRole[]>([]);
-  const [game, setGame] = useState<IGame>();
+  let [game, setGame] = useState<IGame>();
 
   const {id} = router.query;
   
@@ -20,7 +20,13 @@ export default function Lobby() {
 
     try {
       if (id)
-      setGame(await getGame(Number(id)));
+      game = await getGame(Number(id));
+      console.log(game);
+      
+      setGame(game);
+      if (game?.gameContents.length) {
+        router.push("/story/"+game.id);
+      }
       // console.log(game?.clients);
       
     } catch {
@@ -39,6 +45,12 @@ export default function Lobby() {
     setRoles([...roles]);
   }
 
+  const startGame = async () => {
+    if (game) {
+      let x = await postStartGame(game.id);
+      router.push("/story/"+game.id);
+    }
+  }
 
   useEffect(() => {
     updatePage();
@@ -72,7 +84,7 @@ export default function Lobby() {
 
         <div className="flex justify-center mt-2">
           <button onClick={() => router.push("/")} className="btn w-20">Назад</button>
-          <button onClick={() => router.push("/story")} className={`btn w-20 ${game.clients.length < 2 && "!cursor-default hover:bg-[#f0e8dd] bg-[#f0e8dd] text-gray-400"}`} disabled={game.clients.length < 2}>Старт</button>
+          <button onClick={startGame} className={`btn w-20 ${game.clients.length < 2 && "!cursor-default hover:bg-[#f0e8dd] bg-[#f0e8dd] text-gray-400"}`} disabled={game.clients.length < 2}>Старт</button>
         </div>
       </div>
 

@@ -7,12 +7,16 @@ export default function UserInfo () {
   // вынести в env
   const userID = 2;
 
-  const [myInfo, setMyInfo] = useState<any>(null);
+  let [myInfo, setMyInfo] = useState<any>(null);
+
   const updateClients = async () => {
     let clients: IClient[] = await getClients();
-    setMyInfo(clients.find((e) => e.id == userID));
-    if (myInfo)
-    sessionStorage.setItem("ID", myInfo.id);
+    myInfo = clients.find((e) => e.id == userID);
+    setMyInfo(myInfo);
+    // if (myInfo)
+    // sessionStorage.setItem("ID", myInfo.id);
+    // sessionStorage.setItem("role", myInfo.role.name);
+    // sessionStorage.setItem("name", myInfo.name);
     console.log(clients);
   }
 
@@ -23,7 +27,8 @@ export default function UserInfo () {
   return (
     // {myInfo != null && 
       <div className="bg-white border border-[#d6c4a8] p-2 shadow-lg rounded-br-xl absolute flex items-center">
-        <p>user: {myInfo?.name} ({myInfo?.id})</p>
+        {/* <p>user: {myInfo?.name} - {myInfo?.role} - ({myInfo?.id})</p> */}
+        {/* <p>{sessionStorage.getItem("ID") ? sessionStorage.getItem("ID") : "?"}</p> */}
       </div>
     // }
 

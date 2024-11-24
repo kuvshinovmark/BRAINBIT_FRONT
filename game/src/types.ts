@@ -9,6 +9,7 @@ export interface IGame {
       name: string
     }
   }[]
+  gameContents: IPage[]
   // roleList: string[]
 }
 
@@ -25,7 +26,7 @@ export interface IClient {
 export interface IAction {
   title: string 
   isLocked: boolean
-  effect?: string
+  effect: string
 }
 export interface IExam {
   title: string 
@@ -35,11 +36,13 @@ export interface IExam {
 export interface IPage {
   title: string
   number: number
-  date: string 
+  order: number
+  prompt: string
+  time: string 
   role: string
   description: string
   text: string 
-  img?: any 
+  image?: any 
   actions?: IAction[]
   // ЛИБО! Возможна проверка (нужно только что-то одно отправлять)
   exam?: IExam

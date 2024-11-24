@@ -67,3 +67,59 @@ export async function postJoinToGame(idClient: number, idGame: number) {
   const out = await response.json();
   return out;
 }
+
+
+export async function postStartGame(idGame: number) {
+  const response = await fetch(
+    backUrl + '/games/' + idGame + "/start",
+    { 
+      method: 'POST',
+      headers: { 
+        Accept: "application/json",
+        "Content-Type": "application/json" 
+      },
+    }
+  );
+  const out = await response.json();
+  return out;
+}
+
+export async function postActions(idGame: number, idClient: number) {
+  const response = await fetch(
+    backUrl + '/games/' + idGame + "/actions",
+    { 
+      method: 'POST',
+      headers: { 
+        Accept: "application/json",
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        clientId: idClient
+      })
+    }
+  );
+  const out = await response.json();
+  return out;
+}
+
+export async function postContinue(idGame: number, idClient: number, prompt: string, effect: string) {
+  const response = await fetch(
+    backUrl + '/games/' + idGame + "/continue",
+    { 
+      method: 'POST',
+      headers: { 
+        Accept: "application/json",
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        clientId: idClient,
+        prompt: prompt,
+        effect: effect
+      })
+    }
+  );
+  const out = await response.json();
+  return out;
+}
+
+// games/id/actions
